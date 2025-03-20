@@ -1,0 +1,1 @@
+tạo add[], delete[], get[] cho các schema

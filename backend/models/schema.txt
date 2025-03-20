@@ -1,0 +1,144 @@
+const mongoose = require('mongoose');
+const express = require('express');
+const router = express.Router();
+
+// User Schema
+const UserSchema = new mongoose.Schema({
+  status: { type: String, enum: ['active', 'inactive', 'banned'], default: 'active' },
+  email: { type: String, required: true, unique: true, trim: true },
+  phone: { type: String, unique: true, sparse: true },
+  fullname: { type: String, trim: true },
+  birthday: { type: Date, default: null },
+  gender: { type: String, enum: ['male', 'female', 'other'], default: null },
+  password: { type: String, required: true },
+  role: { type: String, enum: ['user', 'admin'], default: 'user' },
+  chapter_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Chapter', default: null }
+}, { timestamps: true });
+
+const User = mongoose.model('User', UserSchema);
+
+// Session Schema
+const SessionSchema = new mongoose.Schema({
+  expired_at: { type: Date, required: true },
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+}, { timestamps: true });
+
+const Session = mongoose.model('Session', SessionSchema);
+
+// OTP Schema
+const OTPSchema = new mongoose.Schema({
+  expired_at: { type: Date, required: true },
+  email: { type: String, required: true },
+  otp: { type: String, required: true }
+}, { timestamps: true });
+
+const OTP = mongoose.model('OTP', OTPSchema);
+
+// Chapter Schema
+const ChapterSchema = new mongoose.Schema({
+  status: { type: String, enum: ['active', 'inactive'], default: 'active' },
+  name: { type: String, required: true },
+  address: { type: String, required: true },
+  affiliated: { type: String },
+  established_date: { type: Date }
+}, { timestamps: true });
+
+const Chapter = mongoose.model('Chapter', ChapterSchema);
+
+// Chapter Log Schema
+const ChapterLogSchema = new mongoose.Schema({
+  message: { type: String, required: true },
+  chapter_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Chapter', required: true }
+}, { timestamps: true });
+
+const ChapterLog = mongoose.model('ChapterLog', ChapterLogSchema);
+
+// Member Schema
+const MemberSchema = new mongoose.Schema({
+  status: { type: String, enum: ['active', 'inactive'], default: 'active' },
+  card_id: { type: String, unique: true },
+  avatar: { type: String },
+  fullname: { type: String, required: true },
+  birthday: { type: Date },
+  gender: { type: String, enum: ['male', 'female', 'other'] },
+  hometown: { type: String },
+  address: { type: String },
+  ethnicity: { type: String },
+  religion: { type: String },
+  edu_level: { type: String },
+  joined_date: { type: Date },
+  email: { type: String },
+  phone: { type: String },
+  position: { type: String }
+}, { timestamps: true });
+
+const Member = mongoose.model('Member', MemberSchema);
+
+// Transfer Log Schema
+const TransferLogSchema = new mongoose.Schema({
+  chapter_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Chapter', required: true },
+  member_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Member', required: true }
+}, { timestamps: true });
+
+const TransferLog = mongoose.model('TransferLog', TransferLogSchema);
+
+// Event Schema
+const EventSchema = new mongoose.Schema({
+  status: { type: String, enum: ['upcoming', 'ongoing', 'completed'], default: 'upcoming' },
+  title: { type: String, required: true },
+  description: { type: String },
+  tag: { type: [String] },
+  location: { type: String },
+  start_time: { type: Date },
+  requirement: { type: String },
+  chapter_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Chapter' },
+  images: { type: [String] },
+  participants: { type: [mongoose.Schema.Types.ObjectId], ref: 'Member' },
+  like: { type: Number, default: 0 }
+}, { timestamps: true });
+
+const Event = mongoose.model('Event', EventSchema);
+
+// Comment Schema
+const CommentSchema = new mongoose.Schema({
+  chapter_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Chapter' },
+  event_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Event' },
+  content: { type: String, required: true }
+}, { timestamps: true });
+
+const Comment = mongoose.model('Comment', CommentSchema);
+
+// Document Schema
+const DocumentSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  type: { type: String },
+  issuer: { type: String },
+  issuedDate: { type: Date },
+  description: { type: String },
+  file: { type: String }
+}, { timestamps: true });
+
+const Document = mongoose.model('Document', DocumentSchema);
+
+// Conversation Schema
+const ConversationSchema = new mongoose.Schema({
+  members: { type: [mongoose.Schema.Types.ObjectId], ref: 'User' },
+  last_message: {
+    sender_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    text: { type: String },
+    timestamp: { type: Date }
+  }
+}, { timestamps: true });
+
+const Conversation = mongoose.model('Conversation', ConversationSchema);
+
+// Message Schema
+const MessageSchema = new mongoose.Schema({
+  conversation_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Conversation' },
+  sender_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  text: { type: String, required: true }
+}, { timestamps: true });
+
+const Message = mongoose.model('Message', MessageSchema);
+
+module.exports = { User, Session, OTP, Chapter, ChapterLog, Member, TransferLog, Event, Comment, Document, Conversation, Message };

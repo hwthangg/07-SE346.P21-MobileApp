@@ -5,7 +5,7 @@ import { Link } from 'expo-router'
 const LoginScreen = () => {
   return (
     <View>
-      <Text>LoginScreen</Text>
+      <Text className='text-white'>LoginScreen</Text>
       <Link href='/admin/accounts'>To admin</Link>
       <Link href='/leader/members'>To leader</Link>
     </View>

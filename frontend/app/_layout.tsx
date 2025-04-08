@@ -5,8 +5,8 @@ import "../app/global.css"
 const RootLayout = () => {
   return (
     <Stack>
-        <Stack.Screen name='(auth)/index'/>
-        <Stack.Screen name='(app)'/>
+        <Stack.Screen name='(auth)/index' options={{headerShown: false}}/>
+        <Stack.Screen name='(app)' options={{headerShown: false}}/>
 
 
     </Stack>

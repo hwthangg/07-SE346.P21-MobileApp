@@ -4,10 +4,9 @@ import { Stack, Tabs } from 'expo-router'
 
 const AdminLayout = () => {
   return (
-    <Tabs>
-        <Tabs.Screen name='accounts/index'/>
-        <Tabs.Screen name='chapters/index'/>
-        
+    <Tabs screenOptions={{ headerShown: false }}>
+      <Tabs.Screen name='accounts/index' />
+      <Tabs.Screen name='chapters/index' />
     </Tabs>
   )
 }

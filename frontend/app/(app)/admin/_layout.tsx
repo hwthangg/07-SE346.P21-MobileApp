@@ -10,7 +10,7 @@ const AdminLayout = () => {
         height: 70,
       },
     }}>
-        <Tabs.Screen name='accounts/index' options={{
+        <Tabs.Screen name='accounts' options={{
           headerShown: false,
           tabBarButton: ({
             accessibilityState,

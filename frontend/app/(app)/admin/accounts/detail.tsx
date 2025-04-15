@@ -136,7 +136,7 @@ export default function MemberDetail () {
             className='bg-blue-600 p-3 rounded-lg flex-1 ml-2 flex-row justify-center items-center'
             onPress={() =>
               router.push({
-                pathname: '/(app)/leader/members/add',
+                pathname: '/(app)/admin/accounts/add',
                 params: { ...member, isEdit: 'true' }
               })
             }

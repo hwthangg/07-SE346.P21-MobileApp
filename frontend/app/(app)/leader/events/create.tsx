@@ -10,9 +10,69 @@ import {
     Platform,
     Modal,
     FlatList,
+    Image,
+    StatusBar,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
+import * as Location from 'expo-location';
+import MapView, { Marker } from 'react-native-maps';
+import { Picker } from '@react-native-picker/picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+const DateTimePickerField = ({
+    label,
+    dateValue,
+    onDateChange,
+}: {
+    label: string;
+    dateValue: Date;
+    onDateChange: (event: any, selectedDate?: Date) => void;
+}) => {
+    const [showPicker, setShowPicker] = useState(false);
+
+    const handlePress = () => setShowPicker(true);
+
+    const handleDateChangeInternal = (event: any, selectedDate?: Date) => {
+        if (event.type === 'dismissed') {
+            setShowPicker(false); // Close picker only when dismissed explicitly
+        } else {
+            onDateChange(event, selectedDate);
+        }
+    };
+
+    return (
+        <View className="mb-4">
+            <View className="flex-row items-center mb-2">
+                <Ionicons name="calendar-outline" size={20} color="#000" />
+                <Text className="text-lg font-bold ml-2 text-gray-900">{label}</Text>
+            </View>
+            <TouchableOpacity
+                className="border border-gray-300 p-3 rounded-lg bg-white flex-row justify-between items-center"
+                onPress={handlePress}
+            >
+                <Text className="text-gray-900">
+                    {`${dateValue.getFullYear()}-${(dateValue.getMonth() + 1)
+                        .toString()
+                        .padStart(2, '0')}-${dateValue.getDate().toString().padStart(2, '0')} ${dateValue
+                            .getHours()
+                            .toString()
+                            .padStart(2, '0')}:${dateValue.getMinutes().toString().padStart(2, '0')}`}
+                </Text>
+                <Ionicons name="chevron-down" size={20} color="#000" />
+            </TouchableOpacity>
+            {showPicker && (
+                <DateTimePicker
+                    value={dateValue}
+                    mode="datetime"
+                    display="default"
+                    onChange={handleDateChangeInternal}
+                />
+            )}
+        </View>
+    );
+};
 
 const CreateEvent = () => {
     const router = useRouter();
@@ -21,9 +81,10 @@ const CreateEvent = () => {
     // Event fields
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [images, setImages] = useState('');
+    const [imageUri, setImageUri] = useState('');
     const [location, setLocation] = useState('');
-    const [time, setTime] = useState('');
+    const [startTime, setStartTime] = useState(new Date());
+    const [endTime, setEndTime] = useState(new Date());
     const [requirements, setRequirements] = useState('');
     const [status, setStatus] = useState('Chờ');
 
@@ -32,6 +93,10 @@ const CreateEvent = () => {
     const [currentDropdown, setCurrentDropdown] = useState('');
     const [dropdownOptions, setDropdownOptions] = useState<string[]>([]);
     const [dropdownTitle, setDropdownTitle] = useState('');
+
+    // Map state
+    const [mapModalVisible, setMapModalVisible] = useState(false);
+    const [selectedLocation, setSelectedLocation] = useState<{ latitude: number; longitude: number } | null>(null);
 
     const handleDropdownChange = (value: string) => {
         if (currentDropdown === 'status') setStatus(value);
@@ -45,13 +110,43 @@ const CreateEvent = () => {
         setModalVisible(true);
     };
 
+    const handleImagePick = async () => {
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            quality: 1,
+        });
+
+        if (!result.canceled) {
+            setImageUri(result.assets[0].uri);
+        }
+    };
+
+    const handleMapSelect = (event: any) => {
+        const { latitude, longitude } = event.nativeEvent.coordinate;
+        setSelectedLocation({ latitude, longitude });
+        setLocation(`Lat: ${latitude.toFixed(6)}, Lng: ${longitude.toFixed(6)}`);
+        setMapModalVisible(false);
+    };
+
+    const handleDateChange = (type: 'start' | 'end', event: any, selectedDate?: Date) => {
+        if (selectedDate) {
+            if (type === 'start') {
+                setStartTime(selectedDate);
+            } else {
+                setEndTime(selectedDate);
+            }
+        }
+    };
+
     const handleSubmit = () => {
         const eventData = {
             title,
             description,
-            images,
+            imageUri,
             location,
-            time,
+            startTime: startTime.toISOString(),
+            endTime: endTime.toISOString(),
             requirements,
             status,
         };
@@ -66,13 +161,30 @@ const CreateEvent = () => {
     };
 
     return (
-        <SafeAreaView className="flex-1 bg-gray-50">
-            {/* Header */}
-            <View className="bg-blue-600 p-4 flex-row items-center">
-                <TouchableOpacity onPress={() => router.back()}>
-                    <Ionicons name="arrow-back" size={24} color="white" />
-                </TouchableOpacity>
-                <Text className="text-white text-xl font-bold ml-4">Tạo sự kiện</Text>
+        <SafeAreaView className="flex-1 bg-white">
+            <StatusBar barStyle="light-content" />
+
+            {/* Header - Phong cách đoàn khoa đồng bộ với detail */}
+            <View className="bg-blue-600 p-4">
+                <View className="flex-row items-center justify-between">
+                    <TouchableOpacity
+                        className="bg-white/20 rounded-full p-2"
+                        onPress={() => router.back()}
+                    >
+                        <Ionicons name="arrow-back" size={22} color="white" />
+                    </TouchableOpacity>
+
+                    <View>
+                        <Text className="text-white text-xl font-bold text-center">
+                            Tạo sự kiện mới
+                        </Text>
+                        <Text className="text-white text-xs text-center">
+                            Đoàn Thanh niên - Hội Sinh viên
+                        </Text>
+                    </View>
+
+                    <View style={{ width: 30 }} />
+                </View>
             </View>
 
             {/* Form */}
@@ -88,80 +200,137 @@ const CreateEvent = () => {
                     contentContainerStyle={{ paddingBottom: 40 }}
                 >
                     <View className="p-4">
-                        <Text className="mb-2 text-gray-700">Tiêu đề</Text>
-                        <TextInput
-                            className="border border-gray-200 p-3 rounded-lg bg-white mb-4 text-gray-700"
-                            placeholder="Nhập tiêu đề sự kiện"
-                            value={title}
-                            onChangeText={setTitle}
-                            onFocus={() => scrollToInput(0)}
+                        {/* Tiêu đề - Định dạng theo kiểu detail */}
+                        <View className="mb-4">
+                            <View className="flex-row items-center mb-2">
+                                <Ionicons name="document-text-outline" size={20} color="#000" />
+                                <Text className="text-lg font-bold ml-2 text-gray-900">Tiêu đề</Text>
+                            </View>
+                            <TextInput
+                                className="border border-gray-300 p-3 rounded-lg bg-white text-gray-900"
+                                placeholder="Nhập tiêu đề sự kiện"
+                                placeholderTextColor="#666"
+                                value={title}
+                                onChangeText={setTitle}
+                                onFocus={() => scrollToInput(0)}
+                            />
+                        </View>
+
+                        {/* Mô tả - Định dạng theo kiểu detail */}
+                        <View className="mb-4">
+                            <View className="flex-row items-center mb-2">
+                                <Ionicons name="information-circle-outline" size={20} color="#000" />
+                                <Text className="text-lg font-bold ml-2 text-gray-900">Mô tả</Text>
+                            </View>
+                            <TextInput
+                                className="border border-gray-300 p-3 rounded-lg bg-white text-gray-900"
+                                placeholder="Nhập mô tả sự kiện"
+                                placeholderTextColor="#666"
+                                value={description}
+                                onChangeText={setDescription}
+                                multiline
+                                numberOfLines={4}
+                                style={{ textAlignVertical: 'top', minHeight: 100 }}
+                                onFocus={() => scrollToInput(60)}
+                            />
+                        </View>
+
+                        {/* Hình ảnh - Định dạng theo kiểu detail */}
+                        <View className="mb-4">
+                            <View className="flex-row items-center mb-2">
+                                <Ionicons name="image-outline" size={20} color="#000" />
+                                <Text className="text-lg font-bold ml-2 text-gray-900">Hình ảnh</Text>
+                            </View>
+                            <TouchableOpacity
+                                className="border border-gray-300 p-3 rounded-lg bg-white flex-row justify-between items-center"
+                                onPress={handleImagePick}
+                            >
+                                <Text className="text-gray-900">
+                                    {imageUri ? 'Đã chọn hình ảnh' : 'Chọn hình ảnh từ thư viện'}
+                                </Text>
+                                <Ionicons name="cloud-upload-outline" size={20} color="#000" />
+                            </TouchableOpacity>
+                            {imageUri ? (
+                                <Image source={{ uri: imageUri }} className="w-full h-40 rounded-lg mt-2" />
+                            ) : null}
+                        </View>
+
+                        {/* Vị trí - Định dạng theo kiểu detail */}
+                        <View className="mb-4">
+                            <View className="flex-row items-center mb-2">
+                                <Ionicons name="location-outline" size={20} color="#000" />
+                                <Text className="text-lg font-bold ml-2 text-gray-900">Địa điểm</Text>
+                            </View>
+                            <TouchableOpacity
+                                className="border border-gray-300 bg-white p-3 rounded-lg flex-row justify-between items-center"
+                                onPress={() => setMapModalVisible(true)}
+                            >
+                                <Text className="text-gray-900">
+                                    {location || 'Chọn vị trí từ bản đồ'}
+                                </Text>
+                                <Ionicons name="map" size={20} color="#000" />
+                            </TouchableOpacity>
+                        </View>
+
+                        {/* Thời gian bắt đầu - sử dụng component đã điều chỉnh */}
+                        <DateTimePickerField
+                            label="Thời gian bắt đầu"
+                            dateValue={startTime}
+                            onDateChange={(event, date) => handleDateChange('start', event, date)}
                         />
 
-                        <Text className="mb-2 text-gray-700">Mô tả</Text>
-                        <TextInput
-                            className="border border-gray-200 p-3 rounded-lg bg-white mb-4 text-gray-700"
-                            placeholder="Nhập mô tả sự kiện"
-                            value={description}
-                            onChangeText={setDescription}
-                            multiline
-                            onFocus={() => scrollToInput(60)}
+                        {/* Thời gian kết thúc - sử dụng component đã điều chỉnh */}
+                        <DateTimePickerField
+                            label="Thời gian kết thúc"
+                            dateValue={endTime}
+                            onDateChange={(event, date) => handleDateChange('end', event, date)}
                         />
 
-                        <Text className="mb-2 text-gray-700">Hình ảnh</Text>
-                        <TextInput
-                            className="border border-gray-200 p-3 rounded-lg bg-white mb-4 text-gray-700"
-                            placeholder="Nhập URL hình ảnh"
-                            value={images}
-                            onChangeText={setImages}
-                            onFocus={() => scrollToInput(120)}
-                        />
+                        {/* Yêu cầu - Định dạng theo kiểu detail */}
+                        <View className="mb-4">
+                            <View className="flex-row items-center mb-2">
+                                <Ionicons name="list-outline" size={20} color="#000" />
+                                <Text className="text-lg font-bold ml-2 text-gray-900">Yêu cầu</Text>
+                            </View>
+                            <TextInput
+                                className="border border-gray-300 p-3 rounded-lg bg-white text-gray-900"
+                                placeholder="Nhập yêu cầu sự kiện"
+                                placeholderTextColor="#666"
+                                value={requirements}
+                                onChangeText={setRequirements}
+                                multiline
+                                numberOfLines={3}
+                                style={{ textAlignVertical: 'top', minHeight: 80 }}
+                                onFocus={() => scrollToInput(300)}
+                            />
+                        </View>
 
-                        <Text className="mb-2 text-gray-700">Vị trí</Text>
-                        <TextInput
-                            className="border border-gray-200 p-3 rounded-lg bg-white mb-4 text-gray-700"
-                            placeholder="Nhập vị trí sự kiện"
-                            value={location}
-                            onChangeText={setLocation}
-                            onFocus={() => scrollToInput(180)}
-                        />
+                        {/* Trạng thái - Định dạng theo kiểu detail */}
+                        <View className="mb-6">
+                            <View className="flex-row items-center mb-2">
+                                <Ionicons name="checkmark-circle-outline" size={20} color="#000" />
+                                <Text className="text-lg font-bold ml-2 text-gray-900">Trạng thái</Text>
+                            </View>
+                            <TouchableOpacity
+                                className="border border-gray-300 p-3 rounded-lg bg-white flex-row justify-between items-center"
+                                onPress={() =>
+                                    showDropdown('status', ['Đã hoàn thành', 'Đang bắt đầu', 'Chờ', 'Đã xóa'], 'Chọn trạng thái')
+                                }
+                            >
+                                <Text className="text-gray-900">
+                                    {status || 'Chọn trạng thái'}
+                                </Text>
+                                <Ionicons name="chevron-down" size={20} color="#000" />
+                            </TouchableOpacity>
+                        </View>
 
-                        <Text className="mb-2 text-gray-700">Thời gian</Text>
-                        <TextInput
-                            className="border border-gray-200 p-3 rounded-lg bg-white mb-4 text-gray-700"
-                            placeholder="Nhập thời gian sự kiện"
-                            value={time}
-                            onChangeText={setTime}
-                            onFocus={() => scrollToInput(240)}
-                        />
-
-                        <Text className="mb-2 text-gray-700">Yêu cầu</Text>
-                        <TextInput
-                            className="border border-gray-200 p-3 rounded-lg bg-white mb-4 text-gray-700"
-                            placeholder="Nhập yêu cầu sự kiện"
-                            value={requirements}
-                            onChangeText={setRequirements}
-                            onFocus={() => scrollToInput(300)}
-                        />
-
-                        <Text className="mb-2 text-gray-700">Trạng thái</Text>
+                        {/* Nút lưu - Cải thiện giao diện */}
                         <TouchableOpacity
-                            className="border border-gray-200 p-3 rounded-lg bg-white mb-4 flex-row justify-between items-center"
-                            onPress={() =>
-                                showDropdown('status', ['Đã hoàn thành', 'Đang bắt đầu', 'Chờ', 'Đã xóa'], 'Chọn trạng thái')
-                            }
-                        >
-                            <Text className={status ? 'text-gray-700' : 'text-gray-400'}>
-                                {status || 'Chọn trạng thái'}
-                            </Text>
-                            <Ionicons name="chevron-down" size={20} color="#9CA3AF" />
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            className="bg-blue-600 p-4 rounded-lg flex-row justify-center items-center mt-2"
+                            className="bg-blue-600 p-4 rounded-lg flex-row justify-center items-center mt-4"
                             onPress={handleSubmit}
                         >
-                            <Ionicons name="save" size={24} color="white" />
-                            <Text className="text-white font-bold ml-2 text-base">Lưu</Text>
+                            <Ionicons name="save" size={22} color="white" />
+                            <Text className="text-white font-bold ml-2 text-base">Lưu sự kiện</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
@@ -180,7 +349,7 @@ const CreateEvent = () => {
                 >
                     <View className="bg-white rounded-t-xl">
                         <View className="p-4 border-b border-gray-200 flex-row justify-between items-center">
-                            <Text className="text-lg font-bold text-gray-800">{dropdownTitle}</Text>
+                            <Text className="text-lg font-bold text-gray-900">{dropdownTitle}</Text>
                             <TouchableOpacity onPress={() => setModalVisible(false)}>
                                 <Ionicons name="close" size={24} color="#4B5563" />
                             </TouchableOpacity>
@@ -195,11 +364,47 @@ const CreateEvent = () => {
                                     className="p-6 border-b border-gray-100"
                                     onPress={() => handleDropdownChange(item)}
                                 >
-                                    <Text className="text-gray-700 text-base">{item}</Text>
+                                    <Text className="text-gray-900 text-base">{item}</Text>
                                 </TouchableOpacity>
                             )}
                         />
                     </View>
+                </View>
+            </Modal>
+
+            {/* Map Modal */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={mapModalVisible}
+                onRequestClose={() => setMapModalVisible(false)}
+            >
+                <View className="flex-1">
+                    <MapView
+                        style={{ flex: 1 }}
+                        initialRegion={{
+                            latitude: 10.8231,
+                            longitude: 106.6297,
+                            latitudeDelta: 0.05,
+                            longitudeDelta: 0.05,
+                        }}
+                        onPress={handleMapSelect}
+                    >
+                        {selectedLocation && (
+                            <Marker
+                                coordinate={{
+                                    latitude: selectedLocation.latitude,
+                                    longitude: selectedLocation.longitude,
+                                }}
+                            />
+                        )}
+                    </MapView>
+                    <TouchableOpacity
+                        className="absolute top-4 left-4 bg-white p-3 rounded-full"
+                        onPress={() => setMapModalVisible(false)}
+                    >
+                        <Ionicons name="close" size={24} color="black" />
+                    </TouchableOpacity>
                 </View>
             </Modal>
         </SafeAreaView>

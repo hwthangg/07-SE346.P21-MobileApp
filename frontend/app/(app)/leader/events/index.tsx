@@ -109,17 +109,6 @@ const EventList = () => {
         />
       </View>
 
-      {/* Create Event Button */}
-      <View className="px-4 mb-4">
-        <TouchableOpacity
-          className="bg-blue-600 p-3 rounded-lg flex-row items-center justify-center"
-          onPress={() => router.push('/(app)/leader/events/create')}
-        >
-          <Ionicons name="add-circle-outline" size={20} color="white" />
-          <Text className="text-white font-bold ml-2">Tạo sự kiện mới</Text>
-        </TouchableOpacity>
-      </View>
-
       {/* Event list */}
       <FlatList
         className="px-4"

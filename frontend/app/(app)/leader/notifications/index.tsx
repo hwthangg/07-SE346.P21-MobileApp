@@ -19,10 +19,10 @@ const Notification = () => {
 
   const renderItem = ({item} : {item:any}) =>{
     return(
-<TouchableOpacity
+        <TouchableOpacity
           style={{
-           minHeight:60,
-            borderWidth: 1,
+            minHeight:60,
+            
             boxShadow: "0px 5px 9px #4955CE",
             opacity: 0.5,
             borderRadius: 10,
@@ -31,7 +31,7 @@ const Notification = () => {
             overflowY: "visible"
           }}
         >
-          <Text style={{ flex: 1, borderWidth: 1, verticalAlign: "middle" }}>
+          <Text style={{ flex: 1, verticalAlign: "middle" }}>
             {item.text}
           </Text>
         </TouchableOpacity>
@@ -48,7 +48,7 @@ const Notification = () => {
           Thông báo
         </Text>
       </View>
-      <View className="flex-1 h-[60px] w-[87.5%] border m-auto">
+      <View className="flex-1 h-[60px] w-[87.5%] m-auto">
         <FlatList
         data={data}
         keyExtractor={(item:any)=>item.id.toString()}

@@ -49,7 +49,7 @@ const LeaderLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="events/index"
+        name="events"
         options={{
           headerShown: false,
           tabBarButton: ({

@@ -22,8 +22,8 @@ const RegisterSreen = () => {
   const [yyyy, setYYYY] = useState("");
   const [gender, setGender] = useState("male");
   const [toggleGender, setToggleGender] = useState(false);
-  const [password, setPassword] = useState('')
-  const [rePassword, setRePassword] = useState('')
+  const [password, setPassword] = useState("");
+  const [rePassword, setRePassword] = useState("");
 
   const [isVisibilePassword, setIsVisibilePassword] = useState(false);
   const [isVisibileRePassword, setIsVisibileRePassword] = useState(false);
@@ -35,9 +35,9 @@ const RegisterSreen = () => {
       phone: phone,
       birthday: new Date(`${yyyy}-${mm}-${dd}`),
       gender: gender,
-      password: password
-    })
-  }
+      password: password,
+    });
+  };
 
   return (
     <>
@@ -48,10 +48,9 @@ const RegisterSreen = () => {
         <Image
           source={require("../../assets/images/banner.png")}
           style={{
-            width: "100%",
-
-            height: 176,
-            resizeMode: "contain",
+           
+            width: "auto",
+            height: 180,
           }}
         />
 
@@ -362,16 +361,16 @@ const RegisterSreen = () => {
                 marginBottom: 10,
               }}
             >
-              <Feather
+             <Feather
                 name="lock"
                 size={24}
                 color="#3E4FF5"
-                style={{ flex: 1, marginHorizontal: 10 }}
+                style={{marginLeft: 10 }}
               />
               <TextInput
                 inputMode="text"
                 secureTextEntry={!isVisibilePassword}
-                style={{ width: 200 }}
+                style={{marginLeft: 10,width: 240, textAlign:'left' }}
                 placeholder="Nhập mật khẩu của bạn"
                 value={password}
                 onChangeText={setPassword}
@@ -408,13 +407,13 @@ const RegisterSreen = () => {
                 name="lock"
                 size={24}
                 color="#3E4FF5"
-                style={{ flex: 1, marginLeft: 10 }}
+                style={{marginLeft: 10 }}
               />
               <TextInput
                 inputMode="text"
                 secureTextEntry={!isVisibileRePassword}
-                style={{ width: 200 }}
-                placeholder="Nhập mật khẩu của bạn"
+                style={{marginLeft: 10,width: 240, textAlign:'left' }}
+                placeholder="Nhập lại mật khẩu của bạn"
                 value={rePassword}
                 onChangeText={setRePassword}
               />
@@ -447,7 +446,8 @@ const RegisterSreen = () => {
                 height: 40,
                 borderRadius: 10,
                 marginTop: 10,
-              }} onPress={handleRegister}
+              }}
+              onPress={handleRegister}
             >
               <Text style={{ color: "white", fontWeight: "bold" }}>
                 Đăng ký

@@ -41,10 +41,10 @@ const LoginScreen = () => {
         <Image
           source={require("../../assets/images/banner.png")}
           style={{
-            width: "100%",
-
-            height: 176,
-            resizeMode: "contain",
+           
+           width:'auto',
+            height: 180,
+            
           }}
         />
 
@@ -111,11 +111,11 @@ const LoginScreen = () => {
                 name="phone"
                 size={24}
                 color="#3E4FF5"
-                style={{ flex: 1, marginLeft: 10 }}
+                style={{marginLeft: 10 }}
               />
               <TextInput
                 inputMode="email"
-                style={{ width: 250 }}
+                style={{marginLeft: 10,width: 250, textAlign:'left' }}
                 placeholder="Nhập email hoặc số điện thoại"
                 value={keyAuth}
                 onChangeText={setKeyAuth}
@@ -141,12 +141,12 @@ const LoginScreen = () => {
                 name="lock"
                 size={24}
                 color="#3E4FF5"
-                style={{ flex: 1, marginLeft: 10 }}
+                style={{marginLeft: 10 }}
               />
               <TextInput
                 inputMode="text"
                 secureTextEntry={!isVisibilePassword}
-                style={{ width: 200 }}
+                style={{marginLeft: 10,width: 240, textAlign:'left' }}
                 placeholder="Nhập mật khẩu của bạn"
                 value={password}
                 onChangeText={setPassword}
@@ -171,7 +171,7 @@ const LoginScreen = () => {
                 marginBottom: 10,
               }}
             >
-              <View style={{ flexDirection: "row", flex: 1, gap: 10 }}>
+              <View style={{ flexDirection: "row", flex: 1, gap: 10 , alignItems:'center'}}>
                 <TouchableOpacity
                   onPress={() => setIsRememberPassword(!isRememberPassword)}
                 >

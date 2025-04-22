@@ -12,13 +12,32 @@ import React, { useState } from "react";
 import { Link } from "expo-router";
 import Feather from "@expo/vector-icons/Feather";
 import Fontisto from "@expo/vector-icons/Fontisto";
-import DropDownPicker from "react-native-dropdown-picker";
 
 const RegisterSreen = () => {
-  const [isVisibilePassword, setIsVisibilePassword] = useState(false);
-  const [isRememberPassword, setIsRememberPassword] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [fullname, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [dd, setDD] = useState("");
+  const [mm, setMM] = useState("");
+  const [yyyy, setYYYY] = useState("");
+  const [gender, setGender] = useState("male");
+  const [toggleGender, setToggleGender] = useState(false);
+  const [password, setPassword] = useState('')
+  const [rePassword, setRePassword] = useState('')
 
+  const [isVisibilePassword, setIsVisibilePassword] = useState(false);
+  const [isVisibileRePassword, setIsVisibileRePassword] = useState(false);
+
+  const handleRegister = () => {
+    console.log({
+      fullname: fullname,
+      email: email,
+      phone: phone,
+      birthday: new Date(`${yyyy}-${mm}-${dd}`),
+      gender: gender,
+      password: password
+    })
+  }
 
   return (
     <>
@@ -87,7 +106,6 @@ const RegisterSreen = () => {
                 alignItems: "center",
                 borderWidth: 1,
                 height: 50,
-
                 backgroundColor: "white",
                 borderRadius: 10,
                 borderColor: "#3E4FF5",
@@ -102,8 +120,11 @@ const RegisterSreen = () => {
                 style={{ marginHorizontal: 10 }}
               />
               <TextInput
-                inputMode="email"
-                placeholder="Nhập số điện thoại của bạn"
+                inputMode="text"
+                placeholder="Nhập họ tên của bạn"
+                style={{ width: 250 }}
+                value={fullname}
+                onChangeText={setFullName}
               />
             </View>
 
@@ -130,7 +151,10 @@ const RegisterSreen = () => {
               />
               <TextInput
                 inputMode="email"
-                placeholder="Nhập số điện thoại của bạn"
+                style={{ width: 250 }}
+                placeholder="Nhập địa chỉ email của bạn"
+                value={email}
+                onChangeText={setEmail}
               />
             </View>
 
@@ -156,8 +180,11 @@ const RegisterSreen = () => {
                 style={{ marginHorizontal: 10 }}
               />
               <TextInput
-                inputMode="email"
+                inputMode="numeric"
+                style={{ width: 250 }}
                 placeholder="Nhập số điện thoại của bạn"
+                value={phone}
+                onChangeText={setPhone}
               />
             </View>
             <View style={{ flexDirection: "row", gap: 10 }}>
@@ -192,11 +219,32 @@ const RegisterSreen = () => {
                       marginLeft: 10,
                     }}
                   >
-                    <TextInput inputMode="text" placeholder="Ngày" />
+                    <TextInput
+                      inputMode="numeric"
+                      placeholder="Ngày"
+                      style={{ width: 40, padding: 0, textAlign: "center" }}
+                      maxLength={2}
+                      value={dd}
+                      onChangeText={setDD}
+                    />
                     <Text>/</Text>
-                    <TextInput inputMode="text" placeholder="Tháng" />
+                    <TextInput
+                      inputMode="numeric"
+                      placeholder="Tháng"
+                      style={{ width: 45, padding: 0, textAlign: "center" }}
+                      maxLength={2}
+                      value={mm}
+                      onChangeText={setMM}
+                    />
                     <Text>/</Text>
-                    <TextInput inputMode="text" placeholder="Năm" />
+                    <TextInput
+                      inputMode="numeric"
+                      placeholder="Năm"
+                      style={{ width: 45, padding: 0, textAlign: "center" }}
+                      maxLength={4}
+                      value={yyyy}
+                      onChangeText={setYYYY}
+                    />
                   </View>
                   <View></View>
                 </View>
@@ -204,39 +252,100 @@ const RegisterSreen = () => {
               <View style={{ flex: 1 }}>
                 <Text style={{ color: "#3E4FF5" }}>Giới tính</Text>
                 <View
-              style={[{
-                flexDirection: "row",
-                alignItems: 'flex-start',
-              
-                height: 50,
-justifyContent:'space-between',
-                backgroundColor: "white",
-                borderRadius: 10,
-                borderColor: "#3E4FF5",
-               
-                marginBottom: 10,
-               
-                position:'relative'
-              }, 1 ?{ }:{ borderWidth: 1, boxShadow: "1px 2px 3px rgba(0,0,0,0.7)",}]}
-            >
-              
-              <View style={[{ width:'100%', zIndex:5, position:'relative', borderRadius: 10 , padding: 5}, 1? { borderWidth: 2, backgroundColor:'white',  borderColor: "#3E4FF5"}:{}]}>
-                <Text  style={[{ height: 30, textAlignVertical:'center'},  1? {borderBottomWidth: 1 }:{}]}>Nam</Text>
-                <View style={[{ height:40}, 1 ? {}:{display:'none'}]}><Text style={{ height: '100%', paddingTop: 5, textAlignVertical:'center'}}>Nữ</Text></View>
-                
+                  style={[
+                    {
+                      flexDirection: "row",
+                      alignItems: "flex-start",
+
+                      height: 50,
+                      justifyContent: "space-between",
+                      backgroundColor: "white",
+                      borderRadius: 10,
+                      borderColor: "#3E4FF5",
+
+                      marginBottom: 10,
+
+                      position: "relative",
+                    },
+                    toggleGender
+                      ? {}
+                      : {
+                          borderWidth: 1,
+                          boxShadow: "1px 2px 3px rgba(0,0,0,0.7)",
+                        },
+                  ]}
+                >
+                  <View
+                    style={[
+                      {
+                        width: "100%",
+                        zIndex: 5,
+                        position: "relative",
+                        borderRadius: 10,
+                        padding: 5,
+                      },
+                      toggleGender
+                        ? {
+                            borderWidth: 2,
+                            backgroundColor: "white",
+                            borderColor: "#3E4FF5",
+                          }
+                        : {},
+                    ]}
+                  >
+                    <Text
+                      style={[
+                        { height: 30, textAlignVertical: "center" },
+                        toggleGender
+                          ? { borderBottomWidth: 1 }
+                          : { paddingLeft: 10, paddingTop: 10 },
+                      ]}
+                    >
+                      {gender == "male" ? "Nam" : "Nữ"}
+                    </Text>
+                    <View
+                      style={[
+                        { height: 40 },
+                        toggleGender ? {} : { display: "none" },
+                      ]}
+                    >
+                      <TouchableOpacity
+                        onPress={() => {
+                          gender == "male"
+                            ? setGender("female")
+                            : setGender("male");
+                          setToggleGender(false);
+                        }}
+                      >
+                        <Text
+                          style={{
+                            height: "100%",
+                            paddingTop: 5,
+                            textAlignVertical: "center",
+                          }}
+                        >
+                          {gender == "male" ? "Nữ" : "Nam"}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                  <TouchableOpacity
+                    style={[
+                      {
+                        zIndex: 6,
+                        position: "absolute",
+                        top: 10,
+                        right: 10,
+                      },
+                      toggleGender ? {} : { top: 12 },
+                    ]}
+                    onPress={() => setToggleGender(!toggleGender)}
+                  >
+                    <Feather name="chevron-down" size={24} color="#3E4FF5" />
+                  </TouchableOpacity>
+                </View>
               </View>
-              <TouchableOpacity  style={{  zIndex: 6, position:'absolute', top: 10, right: 10 }}>
-              <Feather
-                name="chevron-down"
-                size={24}
-                color="#3E4FF5"
-               
-              />
-              </TouchableOpacity>
-             
             </View>
-                </View>
-                </View>
             <Text style={{ color: "#3E4FF5" }}>Mật khẩu</Text>
 
             <View
@@ -262,8 +371,10 @@ justifyContent:'space-between',
               <TextInput
                 inputMode="text"
                 secureTextEntry={!isVisibilePassword}
-                style={{ flex: 8 }}
+                style={{ width: 200 }}
                 placeholder="Nhập mật khẩu của bạn"
+                value={password}
+                onChangeText={setPassword}
               />
               <TouchableOpacity
                 onPress={() => setIsVisibilePassword(!isVisibilePassword)}
@@ -277,7 +388,7 @@ justifyContent:'space-between',
               </TouchableOpacity>
             </View>
 
-            <Text style={{ color: "#3E4FF5" }}>Mật khẩu</Text>
+            <Text style={{ color: "#3E4FF5" }}>Nhập lại mật khẩu</Text>
 
             <View
               style={{
@@ -301,15 +412,17 @@ justifyContent:'space-between',
               />
               <TextInput
                 inputMode="text"
-                secureTextEntry={!isVisibilePassword}
-                style={{ flex: 8 }}
+                secureTextEntry={!isVisibileRePassword}
+                style={{ width: 200 }}
                 placeholder="Nhập mật khẩu của bạn"
+                value={rePassword}
+                onChangeText={setRePassword}
               />
               <TouchableOpacity
-                onPress={() => setIsVisibilePassword(!isVisibilePassword)}
+                onPress={() => setIsVisibileRePassword(!isVisibileRePassword)}
               >
                 <Feather
-                  name={isVisibilePassword ? "eye-off" : "eye"}
+                  name={isVisibileRePassword ? "eye-off" : "eye"}
                   size={24}
                   color="#3E4FF5"
                   style={{ marginLeft: 10, marginRight: 20 }}
@@ -334,10 +447,10 @@ justifyContent:'space-between',
                 height: 40,
                 borderRadius: 10,
                 marginTop: 10,
-              }}
+              }} onPress={handleRegister}
             >
               <Text style={{ color: "white", fontWeight: "bold" }}>
-                Đăng nhập
+                Đăng ký
               </Text>
             </TouchableOpacity>
 

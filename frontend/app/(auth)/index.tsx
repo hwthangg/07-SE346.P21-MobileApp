@@ -1,10 +1,12 @@
-import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, Image, TextInput, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { Link } from "expo-router";
 import Feather from "@expo/vector-icons/Feather";
 import Fontisto from "@expo/vector-icons/Fontisto";
 
 const LoginScreen = () => {
+  const [keyAuth, setKeyAuth] = useState('')
+  const [password, setPassword] = useState('')
   const [isVisibilePassword, setIsVisibilePassword] = useState(false);
   const [isRememberPassword, setIsRememberPassword] = useState(false);
 
@@ -35,7 +37,7 @@ const LoginScreen = () => {
     //   </TouchableOpacity>
     // </View>
     <>
-      <View style={{ backgroundColor: "#3E4FF5", flex: 1 }}>
+      <ScrollView style={{ backgroundColor: "#3E4FF5", flex: 1 }}    showsVerticalScrollIndicator={false}>
         <Image
           source={require("../../assets/images/banner.png")}
           style={{
@@ -113,8 +115,10 @@ const LoginScreen = () => {
               />
               <TextInput
                 inputMode="email"
-                style={{ flex: 8 }}
-                placeholder="Nhập số điện thoại của bạn"
+                style={{ width: 250 }}
+                placeholder="Nhập email hoặc số điện thoại"
+                value={keyAuth}
+                onChangeText={setKeyAuth}
               />
             </View>
             <Text style={{ color: "#3E4FF5" }}>Mật khẩu</Text>
@@ -142,8 +146,10 @@ const LoginScreen = () => {
               <TextInput
                 inputMode="text"
                 secureTextEntry={!isVisibilePassword}
-                style={{ flex: 8 }}
+                style={{ width: 200 }}
                 placeholder="Nhập mật khẩu của bạn"
+                value={password}
+                onChangeText={setPassword}
               />
               <TouchableOpacity
                 onPress={() => setIsVisibilePassword(!isVisibilePassword)}
@@ -172,8 +178,8 @@ const LoginScreen = () => {
                   <Fontisto
                     name={
                       isRememberPassword
-                        ? "checkbox-passive"
-                        : "checkbox-active"
+                        ? "checkbox-active"
+                        : "checkbox-passive"
                     }
                     size={16}
                     color="black"
@@ -183,7 +189,7 @@ const LoginScreen = () => {
                 <Text style={{ color: "#3E4FF5" }}>Nhớ mật khẩu</Text>
               </View>
 
-              <Text style={{ color: "#3E4FF5" }}>Quên mật khẩu ?</Text>
+              <Link href={'/(auth)/recoveryPassword'} style={{ color: "#3E4FF5" }}>Quên mật khẩu ?</Link>
             </View>
 
             <TouchableOpacity
@@ -210,8 +216,30 @@ const LoginScreen = () => {
               </Link>
             </Text>
           </>
+          <TouchableOpacity
+        className='bg-blue-600 p-4 rounded-lg w-full max-w-xs mb-4'
+        activeOpacity={0.7}
+      >
+        <Link href='/admin/accounts'>
+          <Text className='text-white text-center font-semibold text-lg'>
+            Đến trang Admin
+          </Text>
+        </Link>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        className='bg-green-600 p-4 rounded-lg w-full max-w-xs'
+        activeOpacity={0.7}
+      >
+        <Link href='/leader/members'>
+          <Text className='text-white text-center font-semibold text-lg'>
+            Đến trang Leader
+          </Text>
+        </Link>
+        </TouchableOpacity>
         </View>
-      </View>
+        </ScrollView>
+      
     </>
   );
 };

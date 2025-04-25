@@ -2,8 +2,14 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { Link, router, Stack, Tabs } from "expo-router";
 import Octicons from "@expo/vector-icons/Octicons";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Ionicons } from "@expo/vector-icons";
+
+// Define proper type for accessibilityState
+interface AccessibilityState {
+  selected: boolean;
+  disabled?: boolean;
+}
 
 const LeaderLayout = () => {
   return (
@@ -15,13 +21,13 @@ const LeaderLayout = () => {
       }}
     >
       <Tabs.Screen
-        name="members"
+        name='members'
         options={{
           headerShown: false,
           tabBarButton: ({
             accessibilityState,
           }: {
-            accessibilityState: any;
+            accessibilityState: AccessibilityState;
           }) => {
             const focused = accessibilityState?.selected;
 
@@ -36,7 +42,7 @@ const LeaderLayout = () => {
                 }}
               >
                 <Octicons
-                  name="people"
+                  name='people'
                   size={30}
                   color={focused ? "blue" : "gray"}
                 />
@@ -49,13 +55,13 @@ const LeaderLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="events/index"
+        name='events/index'
         options={{
           headerShown: false,
           tabBarButton: ({
             accessibilityState,
           }: {
-            accessibilityState: any;
+            accessibilityState: AccessibilityState;
           }) => {
             const focused = accessibilityState?.selected;
 
@@ -69,7 +75,11 @@ const LeaderLayout = () => {
                   backgroundColor: focused ? "#e0f0ff" : "white",
                 }}
               >
-                <MaterialIcons name="event-note" size={30}  color={focused ? "blue" : "gray"}/>
+                <MaterialIcons
+                  name='event-note'
+                  size={30}
+                  color={focused ? "blue" : "gray"}
+                />
                 <Text style={{ color: focused ? "blue" : "gray" }}>
                   Sự kiện
                 </Text>
@@ -79,13 +89,13 @@ const LeaderLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="documents/index"
+        name='documents/index'
         options={{
           headerShown: false,
           tabBarButton: ({
             accessibilityState,
           }: {
-            accessibilityState: any;
+            accessibilityState: AccessibilityState;
           }) => {
             const focused = accessibilityState?.selected;
 
@@ -99,23 +109,27 @@ const LeaderLayout = () => {
                   backgroundColor: focused ? "#e0f0ff" : "white",
                 }}
               >
-                <Ionicons name="document-text-outline" size={30}  color={focused ? "blue" : "gray"}/>
+                <Ionicons
+                  name='document-text-outline'
+                  size={30}
+                  color={focused ? "blue" : "gray"}
+                />
                 <Text style={{ color: focused ? "blue" : "gray" }}>
                   Tài liệu
                 </Text>
               </TouchableOpacity>
             );
-          }
+          },
         }}
       />
       <Tabs.Screen
-        name="notifications/index"
+        name='notifications/index'
         options={{
           headerShown: false,
           tabBarButton: ({
             accessibilityState,
           }: {
-            accessibilityState: any;
+            accessibilityState: AccessibilityState;
           }) => {
             const focused = accessibilityState?.selected;
 
@@ -129,7 +143,11 @@ const LeaderLayout = () => {
                   backgroundColor: focused ? "#e0f0ff" : "white",
                 }}
               >
-                <MaterialIcons name="notifications-none" size={30}  color={focused ? "blue" : "gray"}/>
+                <MaterialIcons
+                  name='notifications-none'
+                  size={30}
+                  color={focused ? "blue" : "gray"}
+                />
                 <Text style={{ color: focused ? "blue" : "gray" }}>
                   Thông báo
                 </Text>
@@ -139,13 +157,13 @@ const LeaderLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="settings/index"
+        name='settings/index'
         options={{
           headerShown: false,
           tabBarButton: ({
             accessibilityState,
           }: {
-            accessibilityState: any;
+            accessibilityState: AccessibilityState;
           }) => {
             const focused = accessibilityState?.selected;
 
@@ -159,7 +177,11 @@ const LeaderLayout = () => {
                   backgroundColor: focused ? "#e0f0ff" : "white",
                 }}
               >
-                <Ionicons name="settings-outline" size={30}  color={focused ? "blue" : "gray"}/>
+                <Ionicons
+                  name='settings-outline'
+                  size={30}
+                  color={focused ? "blue" : "gray"}
+                />
                 <Text style={{ color: focused ? "blue" : "gray" }}>
                   Cài đặt
                 </Text>

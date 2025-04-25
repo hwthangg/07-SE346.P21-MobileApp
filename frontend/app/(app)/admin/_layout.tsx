@@ -1,15 +1,19 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { Stack, Tabs } from 'expo-router'
+import { View, Text } from "react-native";
+import React from "react";
+import { Stack, Tabs } from "expo-router";
 
 const AdminLayout = () => {
   return (
-    <Tabs>
-        <Tabs.Screen name='accounts/index'/>
-        <Tabs.Screen name='chapters/index'/>
-        
+    <Tabs
+      screenOptions={{
+        tabBarStyle: { display: "true" },
+        headerShown: false,
+      }}
+    >
+      <Tabs.Screen name='accounts/index' />
+      <Tabs.Screen name='chapters/index' />
     </Tabs>
-  )
-}
+  );
+};
 
-export default AdminLayout
+export default AdminLayout;

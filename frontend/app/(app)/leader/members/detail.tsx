@@ -21,6 +21,7 @@ export default function MemberDetail () {
     phone: params.phone as string,
     branch: params.branch as string,
     gender: 'Nam',
+    role: 'Admin',
     dob: '12/04/2004',
     email: 'vtquyen@gmail.com',
     hometown: 'Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh',
@@ -52,16 +53,15 @@ export default function MemberDetail () {
             className='w-24 h-24 rounded-full'
           />
           <Text className='text-xl font-bold mt-2'>{member.name}</Text>
-          <View className='flex-row mt-2'>
-            <Text className='text-blue-600'>Thông tin chung</Text>
-            <Text className='text-blue-600 mx-2'>D.S. kỹ luật</Text>
-            <Text className='text-blue-600'>D.S. đoàn viên</Text>
-            <Text className='text-blue-600 mx-2'>D.S. văn bản</Text>
-          </View>
         </View>
 
         {/* Thông tin chi tiết */}
         <View className='p-4'>
+          <Text className='text-lg font-bold mb-2'>Quyền tài khoản</Text>
+          <Text className='border border-gray-300 p-3 rounded-lg bg-white mb-4'>
+            {member.role}
+          </Text>
+
           <Text className='text-lg font-bold mb-2'>Số thẻ đoàn</Text>
           <Text className='border border-gray-300 p-3 rounded-lg bg-white mb-4'>
             {member.cardNumber}

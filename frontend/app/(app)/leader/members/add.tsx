@@ -29,6 +29,7 @@ export default function AddMember () {
   )
   const [name, setName] = useState((params.name as string) || '')
   const [gender, setGender] = useState((params.gender as string) || 'Nam')
+  const [role, setRole] = useState((params.role as string) || 'Admin')
   const [dob, setDob] = useState((params.dob as string) || '')
   const [branch, setBranch] = useState((params.branch as string) || '')
   const [phone, setPhone] = useState((params.phone as string) || '')
@@ -61,6 +62,9 @@ export default function AddMember () {
       case 'education':
         setEducation(value)
         break
+      case 'role':
+        setRole(value)
+        break
     }
     setModalVisible(false)
   }
@@ -78,6 +82,7 @@ export default function AddMember () {
       cardNumber,
       name,
       gender,
+      role,
       dob,
       branch,
       phone,
@@ -172,6 +177,20 @@ export default function AddMember () {
               onFocus={() => scrollToInput(180)}
               style={{ shadowColor: 'transparent', elevation: 0 }}
             />
+
+            <Text className='mb-2 text-gray-700'>Quyền tài khoản</Text>
+            <TouchableOpacity
+              className='border border-gray-200 p-3 rounded-lg bg-white mb-4 flex-row justify-between items-center'
+              style={{ shadowColor: 'transparent', elevation: 0 }}
+              onPress={() =>
+                showDropdown('role', ['Admin', 'User'], 'Chọn quyền tài khoản')
+              }
+            >
+              <Text className={role ? 'text-gray-700' : 'text-gray-400'}>
+                {role || 'Chọn quyền tài khoản'}
+              </Text>
+              <Ionicons name='chevron-down' size={20} color='#9CA3AF' />
+            </TouchableOpacity>
 
             <Text className='mb-2 text-gray-700'>Số điện thoại</Text>
             <TextInput

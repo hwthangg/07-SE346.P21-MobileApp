@@ -105,7 +105,7 @@ const AdminLayout = () => {
               />
         
     </Tabs>
-  )
-}
+  );
+};
 
-export default AdminLayout
+export default AdminLayout;

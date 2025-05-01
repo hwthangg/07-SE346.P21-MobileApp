@@ -15,8 +15,8 @@
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
     "@mui/x-date-pickers": "^8.0.0",
-    "@react-native-community/datetimepicker": "^8.2.0",
-    "@react-native-picker/picker": "2.9.0",
+    "@react-native-community/datetimepicker": "8.2.0",
+    "@react-native-picker/picker": "^2.9.0",
     "@react-navigation/native": "^7.0.14",
     "expo": "~52.0.41",
     "expo-font": "~13.0.4",

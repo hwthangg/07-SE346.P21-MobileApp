@@ -41,7 +41,7 @@ const AdminLayout = () => {
             );
           },
         }}/>
-        <Tabs.Screen name='chapters/index' options={{
+        <Tabs.Screen name='chapters' options={{
           headerShown: false,
           tabBarButton: ({
             accessibilityState,

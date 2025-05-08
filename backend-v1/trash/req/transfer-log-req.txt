@@ -1,0 +1,30 @@
+{
+  "createTransferLog": {
+    "method": "POST",
+    "url": "/api/transfer-logs",
+    "body": {
+      "memberId": "60d5f9e8fc13ae4567000001",
+      "chapterId": "60d5f9e8fc13ae4567000002",
+      "status": "pending"
+    }
+  },
+  "getAllTransferLogs": {
+    "method": "GET",
+    "url": "/api/transfer-logs"
+  },
+  "getTransferLogById": {
+    "method": "GET",
+    "url": "/api/transfer-logs/{id}"
+  },
+  "updateTransferLog": {
+    "method": "PUT",
+    "url": "/api/transfer-logs/{id}",
+    "body": {
+      "status": "accepted"
+    }
+  },
+  "deleteTransferLog": {
+    "method": "DELETE",
+    "url": "/api/transfer-logs/{id}"
+  }
+}

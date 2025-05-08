@@ -1,0 +1,29 @@
+{
+  "createParticipation": {
+    "method": "POST",
+    "url": "/api/participations",
+    "body": {
+      "memberId": "60d5f9e8fc13ae4567000000",
+      "eventId": "60d5f9e8fc13ae4567000001"
+    }
+  },
+  "getParticipations": {
+    "method": "GET",
+    "url": "/api/participations"
+  },
+  "getParticipationById": {
+    "method": "GET",
+    "url": "/api/participations/{id}"
+  },
+  "updateParticipation": {
+    "method": "PUT",
+    "url": "/api/participations/{id}",
+    "body": {
+      "eventId": "60d5f9e8fc13ae4567000002"
+    }
+  },
+  "deleteParticipation": {
+    "method": "DELETE",
+    "url": "/api/participations/{id}"
+  }
+}

@@ -1,0 +1,103 @@
+[
+    {
+      "email": "nguyenminh1@example.com",
+      "phone": "0912345678",
+      "fullname": "Nguyễn Minh Anh",
+      "birthday": {
+        "$date": "1990-01-01T00:00:00.000Z"
+      },
+      "gender": "Male",
+      "password": "password123",
+      "role": "Admin",
+      "chapterId": null,
+      "status": "Activated",
+      "createdAt": {
+        "$date": "2025-04-07T05:03:20.162Z"
+      },
+      "updatedAt": {
+        "$date": "2025-04-07T05:03:20.162Z"
+      },
+      "__v": 0
+    },
+    {
+      "email": "lethithu1@example.com",
+      "phone": "0987654321",
+      "fullname": "Lê Thị Thu Hà",
+      "birthday": {
+        "$date": "1992-02-15T00:00:00.000Z"
+      },
+      "gender": "Female",
+      "password": "password123",
+      "role": "Leader",
+      "chapterId": null,
+      "status": "Activated",
+      "createdAt": {
+        "$date": "2025-04-07T05:03:20.162Z"
+      },
+      "updatedAt": {
+        "$date": "2025-04-07T05:03:20.162Z"
+      },
+      "__v": 0
+    },
+    {
+      "email": "trantuan1@example.com",
+      "phone": "0901234567",
+      "fullname": "Trần Tuấn Anh",
+      "birthday": {
+        "$date": "1993-03-22T00:00:00.000Z"
+      },
+      "gender": "Male",
+      "password": "password123",
+      "role": "Leader",
+      "chapterId": null,
+      "status": "Activated",
+      "createdAt": {
+        "$date": "2025-04-07T05:03:20.162Z"
+      },
+      "updatedAt": {
+        "$date": "2025-04-07T05:03:20.162Z"
+      },
+      "__v": 0
+    },
+    {
+      "email": "phamthu1@example.com",
+      "phone": "0919876543",
+      "fullname": "Phạm Thị Lan",
+      "birthday": {
+        "$date": "1994-04-10T00:00:00.000Z"
+      },
+      "gender": "Female",
+      "password": "password123",
+      "role": "Admin",
+      "chapterId": null,
+      "status": "Activated",
+      "createdAt": {
+        "$date": "2025-04-07T05:03:20.162Z"
+      },
+      "updatedAt": {
+        "$date": "2025-04-07T05:03:20.162Z"
+      },
+      "__v": 0
+    },
+    {
+      "email": "hoangminh1@example.com",
+      "phone": "0923456789",
+      "fullname": "Hoàng Minh Tuấn",
+      "birthday": {
+        "$date": "1989-05-30T00:00:00.000Z"
+      },
+      "gender": "Male",
+      "password": "password123",
+      "role": "Leader",
+      "chapterId": null,
+      "status": "Activated",
+      "createdAt": {
+        "$date": "2025-04-07T05:03:20.162Z"
+      },
+      "updatedAt": {
+        "$date": "2025-04-07T05:03:20.162Z"
+      },
+      "__v": 0
+    }
+  ]
+  

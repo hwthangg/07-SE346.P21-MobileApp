@@ -1,0 +1,48 @@
+[
+    {
+      "name": "Chi đoàn A",
+      "address": "123 Đường ABC, TP.HCM",
+      "affiliated": "Đoàn cơ sở X",
+      "establishedDate": "2010-01-01T00:00:00.000Z",
+      "status": "Activated",
+      "createdAt": "2025-04-07T05:03:20.162Z",
+      "updatedAt": "2025-04-07T05:03:20.162Z"
+    },
+    {
+      "name": "Chi đoàn B",
+      "address": "456 Đường DEF, TP.HCM",
+      "affiliated": "Đoàn cơ sở Y",
+      "establishedDate": "2015-02-15T00:00:00.000Z",
+      "status": "Activated",
+      "createdAt": "2025-04-07T05:03:20.162Z",
+      "updatedAt": "2025-04-07T05:03:20.162Z"
+    },
+    {
+      "name": "Chi đoàn C",
+      "address": "789 Đường GHI, TP.HCM",
+      "affiliated": "Đoàn cơ sở Z",
+      "establishedDate": "2018-03-20T00:00:00.000Z",
+      "status": "Activated",
+      "createdAt": "2025-04-07T05:03:20.162Z",
+      "updatedAt": "2025-04-07T05:03:20.162Z"
+    },
+    {
+      "name": "Chi đoàn D",
+      "address": "101 Đường JKL, TP.HCM",
+      "affiliated": "Đoàn cơ sở X",
+      "establishedDate": "2020-07-10T00:00:00.000Z",
+      "status": "Activated",
+      "createdAt": "2025-04-07T05:03:20.162Z",
+      "updatedAt": "2025-04-07T05:03:20.162Z"
+    },
+    {
+      "name": "Chi đoàn E",
+      "address": "202 Đường MNO, TP.HCM",
+      "affiliated": "Đoàn cơ sở Y",
+      "establishedDate": "2023-05-05T00:00:00.000Z",
+      "status": "Activated",
+      "createdAt": "2025-04-07T05:03:20.162Z",
+      "updatedAt": "2025-04-07T05:03:20.162Z"
+    }
+  ]
+  

@@ -1,0 +1,29 @@
+{
+  "createChapterLog": {
+    "method": "POST",
+    "url": "/api/chapter-logs",
+    "body": {
+      "chapterId": "60d5f9e8fc13ae4567000000",
+      "content": "Updated chapter information"
+    }
+  },
+  "getAllChapterLogs": {
+    "method": "GET",
+    "url": "/api/chapter-logs"
+  },
+  "getChapterLogById": {
+    "method": "GET",
+    "url": "/api/chapter-logs/{id}"
+  },
+  "updateChapterLog": {
+    "method": "PUT",
+    "url": "/api/chapter-logs/{id}",
+    "body": {
+      "content": "Modified content of the chapter log"
+    }
+  },
+  "deleteChapterLog": {
+    "method": "DELETE",
+    "url": "/api/chapter-logs/{id}"
+  }
+}

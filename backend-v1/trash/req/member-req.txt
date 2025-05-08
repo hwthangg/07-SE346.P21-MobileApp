@@ -1,0 +1,43 @@
+{
+  "createMember": {
+    "method": "POST",
+    "url": "/api/members",
+    "body": {
+      "chapterId": "65f123abcde4567890123456",
+      "cardId": "123456789",
+      "avatar": "https://example.com/avatar.jpg",
+      "fullname": "Nguyen Van A",
+      "birthday": "2000-01-01",
+      "gender": "male",
+      "hometown": "Ha Noi",
+      "address": "123 Nguyen Trai, Ha Noi",
+      "ethnicity": "Kinh",
+      "eduLevel": "University",
+      "religion": "None",
+      "joinedDate": "2018-09-01",
+      "email": "nguyenvana@example.com",
+      "phone": "0987654321",
+      "position": "member"
+    }
+  },
+  "getAllMembers": {
+    "method": "GET",
+    "url": "/api/members"
+  },
+  "getMemberById": {
+    "method": "GET",
+    "url": "/api/members/{id}"
+  },
+  "updateMember": {
+    "method": "PUT",
+    "url": "/api/members/{id}",
+    "body": {
+      "fullname": "Nguyen Van B",
+      "phone": "0912345678"
+    }
+  },
+  "deleteMember": {
+    "method": "DELETE",
+    "url": "/api/members/{id}"
+  }
+}

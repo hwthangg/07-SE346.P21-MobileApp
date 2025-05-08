@@ -1,0 +1,39 @@
+{
+  "createEvent": {
+    "method": "POST",
+    "url": "/api/events",
+    "body": {
+      "chapterId": "662b18f5e6e4a40f3c123456",
+      "title": "Hoạt động tình nguyện mùa hè",
+      "description": "Chương trình tình nguyện giúp đỡ trẻ em vùng cao.",
+      "tag": ["volunteering", "education"],
+      "location": "Trường Tiểu học A, Huyện B",
+      "startTime": "2025-04-15T08:00:00.000Z",
+      "requirement": "Đoàn viên tham gia phải có áo Đoàn và đăng ký trước ngày 10/04.",
+      "images": ["https://example.com/image1.jpg", "https://example.com/image2.jpg"],
+      "likes": 0,
+      "status": "pending"
+    }
+  },
+  "getAllEvents": {
+    "method": "GET",
+    "url": "/api/events"
+  },
+  "getEventById": {
+    "method": "GET",
+    "url": "/api/events/{id}"
+  },
+  "updateEvent": {
+    "method": "PUT",
+    "url": "/api/events/{id}",
+    "body": {
+      "title": "Hoạt động tình nguyện hè 2025",
+      "description": "Chương trình tình nguyện mở rộng với nhiều hoạt động hơn.",
+      "status": "ongoing"
+    }
+  },
+  "deleteEvent": {
+    "method": "DELETE",
+    "url": "/api/events/{id}"
+  }
+}

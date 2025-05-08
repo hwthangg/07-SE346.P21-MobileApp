@@ -1,0 +1,35 @@
+{
+  "createDocument": {
+    "method": "POST",
+    "url": "/api/documents",
+    "body": {
+      "chapterId": "60d5f9e8fc13ae4567000000",
+      "type": "administrative",
+      "issuer": "Department of Education",
+      "issuedDate": "2023-05-01",
+      "description": "Official announcement regarding regulations.",
+      "file": "document.pdf",
+      "status": "active"
+    }
+  },
+  "getAllDocuments": {
+    "method": "GET",
+    "url": "/api/documents"
+  },
+  "getDocumentById": {
+    "method": "GET",
+    "url": "/api/documents/{id}"
+  },
+  "updateDocument": {
+    "method": "PUT",
+    "url": "/api/documents/{id}",
+    "body": {
+      "description": "Updated description.",
+      "status": "deleted"
+    }
+  },
+  "deleteDocument": {
+    "method": "DELETE",
+    "url": "/api/documents/{id}"
+  }
+}

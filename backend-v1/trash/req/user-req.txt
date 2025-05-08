@@ -1,0 +1,36 @@
+{
+  "createUser": {
+    "method": "POST",
+    "url": "/api/users",
+    "body": {
+      "email": "example@example.com",
+      "phone": "1234567890",
+      "fullname": "John Doe",
+      "birthday": "1990-01-01",
+      "gender": "male",
+      "password": "securepassword",
+      "role": "leader",
+      "status": "active"
+    }
+  },
+  "getAllUsers": {
+    "method": "GET",
+    "url": "/api/users"
+  },
+  "getUserById": {
+    "method": "GET",
+    "url": "/api/users/{id}"
+  },
+  "updateUser": {
+    "method": "PUT",
+    "url": "/api/users/{id}",
+    "body": {
+      "fullname": "John Updated",
+      "status": "deleted"
+    }
+  },
+  "deleteUser": {
+    "method": "DELETE",
+    "url": "/api/users/{id}"
+  }
+}

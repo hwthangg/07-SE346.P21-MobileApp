@@ -1,0 +1,27 @@
+[
+    {
+        "chapterId": "605c72ef1532071b5f7361e",
+        "content": "Created new chapter for training session.",
+        "createdAt": "2025-04-07T10:00:00Z"
+    },
+    {
+        "chapterId": "605c72ef1532071b5f7361f",
+        "content": "Updated chapter details for outreach program.",
+        "createdAt": "2025-04-06T14:30:00Z"
+    },
+    {
+        "chapterId": "605c72ef1532071b5f73620",
+        "content": "Deleted old documents from the chapter records.",
+        "createdAt": "2025-04-05T09:45:00Z"
+    },
+    {
+        "chapterId": "605c72ef1532071b5f73621",
+        "content": "Scheduled the next chapter meeting for members.",
+        "createdAt": "2025-04-04T16:00:00Z"
+    },
+    {
+        "chapterId": "605c72ef1532071b5f73622",
+        "content": "Reviewed and updated the chapter\u2019s bylaws.",
+        "createdAt": "2025-04-03T11:30:00Z"
+    }
+]

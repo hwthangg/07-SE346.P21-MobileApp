@@ -1,0 +1,32 @@
+{
+  "createChapter": {
+    "method": "POST",
+    "url": "/api/chapters",
+    "body": {
+      "name": "Chi đoàn A",
+      "address": "123 Đường ABC, Quận 1, TP.HCM",
+      "affiliated": "Đoàn cơ sở X",
+      "establishedDate": "2023-05-01",
+    }
+  },
+  "getAllChapters": {
+    "method": "GET",
+    "url": "/api/chapters"
+  },
+  "getChapterById": {
+    "method": "GET",
+    "url": "/api/chapters/{id}"
+  },
+  "updateChapter": {
+    "method": "PUT",
+    "url": "/api/chapters/{id}",
+    "body": {
+      "name": "Chi đoàn B",
+      "status": "deleted"
+    }
+  },
+  "deleteChapter": {
+    "method": "DELETE",
+    "url": "/api/chapters/{id}"
+  }
+}

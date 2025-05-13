@@ -51,12 +51,6 @@ const EventLayout = () => {
                     href: null, // Ẩn tab này khỏi tab bar
                 }}
             />
-            <Tabs.Screen
-                name="index"
-                options={{
-                    href: null, // Ẩn tab này khỏi tab bar
-                }}
-            />
         </Tabs>
     );
 };

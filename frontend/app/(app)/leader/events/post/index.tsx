@@ -28,12 +28,11 @@ type EventPost = {
     likes: number;
     comments: number;
     isLiked: boolean;
+    _flatListRef?: any; // Reference to the image FlatList
 };
 
 const PostScreen = () => {
-    const router = useRouter();
-
-    // Mock data for completed events
+    const router = useRouter();    // Mock data for completed events
     const [completedEvents, setCompletedEvents] = useState<EventPost[]>([
         {
             id: '1',
@@ -45,6 +44,7 @@ const PostScreen = () => {
             requirements: 'Sức khỏe tốt, tinh thần tích cực, kỹ năng làm việc nhóm',
             description: 'Chiến dịch tình nguyện Mùa hè xanh là hoạt động thường niên của Đoàn Thanh niên nhằm phát huy vai trò xung kích, tình nguyện của đoàn viên trong việc tham gia phát triển kinh tế - xã hội, giải quyết các vấn đề an sinh xã hội. Qua đó đã xây dựng 5 căn nhà tình thương, trao tặng 200 suất quà cho các hộ khó khăn, khám chữa bệnh miễn phí cho hơn 500 người dân.',
             images: [
+                'https://scontent.fsgn5-14.fna.fbcdn.net/v/t39.30808-6/482032651_1033663062119428_6517174517474946357_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeFPhsXdnpGPjmfQl6jcU7yl08fFuiDzQWfTx8W6IPNBZ2T4ayFuGDnWTaIU7G5stZV-wIHhwfVDzv03XWfjaAZF&_nc_ohc=van9DFnBhV8Q7kNvwHMZvgG&_nc_oc=Admu_TjshsCV4ssl-8ZBvDbT3zWyhUXFxNRL20iMoZIiL0yiMfH1Ziz1GRLZ8tVuunc&_nc_zt=23&_nc_ht=scontent.fsgn5-14.fna&_nc_gid=TA6OGt60AH9Fxa3B7ZqNEQ&oh=00_AfKuqElFyG6TNaB3u1QmKjedLTZ48r08xoCEob3-fTqAbg&oe=6829F4A8',
                 'https://images.unsplash.com/photo-1593113630400-ea4288922497?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
                 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
                 'https://images.unsplash.com/photo-1560252829-804f1aedf1be?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
@@ -64,11 +64,32 @@ const PostScreen = () => {
             description: 'Hội trại Kỷ niệm 93 năm Ngày thành lập Đoàn TNCS Hồ Chí Minh 26/3 được tổ chức với nhiều hoạt động ý nghĩa như duyệt đội nghi thức, thi trại đẹp, văn nghệ, trò chơi dân gian và các hoạt động gắn kết tập thể.',
             images: [
                 'https://images.unsplash.com/photo-1527525443983-6e60c75fff46?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                'https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                'https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
             ],
             likes: 87,
             comments: 23,
             isLiked: true,
+        },
+        {
+            id: '3',
+            chapterName: 'Chi đoàn Khoa Môi trường',
+            title: 'Chiến dịch Làm sạch bờ biển 2024',
+            time: '05/04/2024 - 07/04/2024',
+            location: 'Bãi biển Vũng Tàu, Tỉnh Bà Rịa - Vũng Tàu',
+            scope: 'Liên Chi đoàn',
+            participants: 'Đoàn viên các Chi đoàn, 120 sinh viên tham gia',
+            requirements: 'Sức khỏe tốt, trang bị đồ bảo hộ cá nhân, kỹ năng bơi cơ bản',
+            description: 'Chiến dịch "Làm sạch bờ biển" là hoạt động bảo vệ môi trường được tổ chức thường niên nhằm nâng cao ý thức bảo vệ môi trường biển cho cộng đồng. Qua đó đã thu gom được hơn 2 tấn rác thải nhựa, tổ chức các buổi tuyên truyền cho người dân và du khách về tác hại của rác thải nhựa đối với môi trường biển.',
+            images: [
+                'https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1626328409968-b11d5d977439?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1621451651659-e6736b4c7eba?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1590931499803-bd75f72845c1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            ],
+            likes: 156,
+            comments: 37,
+            isLiked: false,
         }
     ]);
 
@@ -115,14 +136,15 @@ const PostScreen = () => {
                 isLiked: false,
             },
         ]
-    });
-
-    // Modal states
+    });    // Modal states
     const [commentModalVisible, setCommentModalVisible] = useState(false);
     const [shareModalVisible, setShareModalVisible] = useState(false);
     const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
     const [commentText, setCommentText] = useState('');
     const [searchContact, setSearchContact] = useState('');
+
+    // Image carousel states
+    const [activeImageIndex, setActiveImageIndex] = useState<{ [eventId: string]: number }>({});
 
     // Mock contacts for sharing
     const contacts = [
@@ -248,15 +270,27 @@ const PostScreen = () => {
                 {/* Post title */}
                 <View className="px-4 mb-2">
                     <Text className="font-bold text-lg text-gray-900">{item.title}</Text>
-                </View>
-
-                {/* Post image */}
-                <View>
-                    <FlatList
+                </View>                {/* Post image - Instagram style */}                <View className="relative">
+                    {/* Main image display */}                    <FlatList
                         data={item.images}
                         horizontal
                         pagingEnabled
                         showsHorizontalScrollIndicator={false}
+                        snapToInterval={undefined} // Giúp snap chính xác vào từng ảnh
+                        snapToAlignment="center"
+                        decelerationRate="fast" // Giúp dừng mượt mà hơn khi vuốt
+                        onScroll={(e) => {
+                            const contentOffset = e.nativeEvent.contentOffset;
+                            const viewWidth = e.nativeEvent.layoutMeasurement.width;
+                            const currentIndex = Math.floor(contentOffset.x / viewWidth);
+
+                            // Update active image index for this post
+                            setActiveImageIndex(prev => ({
+                                ...prev,
+                                [item.id]: currentIndex
+                            }));
+                        }}
+                        scrollEventThrottle={16}
                         renderItem={({ item: image }) => (
                             <Image
                                 source={{ uri: image }}
@@ -267,11 +301,26 @@ const PostScreen = () => {
                         keyExtractor={(_, index) => `image-${index}`}
                     />
 
-                    {/* Image pagination indicator */}
+                    {/* Instagram-style dots pagination */}
                     {item.images.length > 1 && (
-                        <View className="absolute bottom-3 right-3 bg-black/50 px-2 py-1 rounded-full">
-                            <Text className="text-white text-xs">
-                                1/{item.images.length}
+                        <View className="absolute bottom-4 left-0 right-0 flex-row justify-center">
+                            {item.images.map((_, index) => {
+                                const isActive = (activeImageIndex[item.id] || 0) === index;
+                                return (
+                                    <View
+                                        key={index}
+                                        className={`h-2 rounded-full mx-1 ${isActive ? 'w-4 bg-blue-500' : 'w-2 bg-white opacity-70'
+                                            }`}
+                                    />
+                                );
+                            })}
+                        </View>
+                    )}
+                    {/* Image number indicator */}
+                    {item.images.length > 1 && (
+                        <View className="absolute top-4 right-4 bg-black/50 px-2 py-1 rounded-full">
+                            <Text className="text-white text-xs font-medium">
+                                {(activeImageIndex[item.id] || 0) + 1}/{item.images.length}
                             </Text>
                         </View>
                     )}
@@ -314,33 +363,32 @@ const PostScreen = () => {
                         <Ionicons name="share-social-outline" size={22} color="#666" />
                     </TouchableOpacity>
                 </View>                {/* Post content */}
-                <View className="p-4">                    {/* Time, Location and Scope - Vertical Layout */}                    {/* Time, Location, Scope, Participants and Requirements */}
-                    <View className="mt-1 mb-3">
-                        <View className="flex-row items-center mb-2">
-                            <Ionicons name="time-outline" size={16} color="#666" />
-                            <Text className="ml-1 text-gray-500 text-xs">{item.time}</Text>
-                        </View>
-
-                        <View className="flex-row items-center mb-2">
-                            <Ionicons name="location-outline" size={16} color="#666" />
-                            <Text className="ml-1 text-gray-500 text-xs">{item.location}</Text>
-                        </View>
-
-                        <View className="flex-row items-center mb-2">
-                            <Ionicons name="people-outline" size={16} color="#666" />
-                            <Text className="ml-1 text-gray-500 text-xs">{item.scope}</Text>
-                        </View>
-
-                        <View className="flex-row items-center mb-2">
-                            <Ionicons name="people-circle-outline" size={16} color="#666" />
-                            <Text className="ml-1 text-gray-500 text-xs">{item.participants}</Text>
-                        </View>
-
-                        <View className="flex-row items-center mb-3">
-                            <Ionicons name="list-outline" size={16} color="#666" />
-                            <Text className="ml-1 text-gray-500 text-xs">{item.requirements}</Text>
-                        </View>
+                <View className="p-4">                    {/* Time, Location and Scope - Vertical Layout */}                    {/* Time, Location, Scope, Participants and Requirements */}                    <View className="mt-1 mb-3">
+                    <View className="flex-row items-center mb-2">
+                        <Ionicons name="time-outline" size={16} color="#666" />
+                        <Text className="ml-1 text-gray-500 text-sm">{item.time}</Text>
                     </View>
+
+                    <View className="flex-row items-center mb-2">
+                        <Ionicons name="location-outline" size={16} color="#666" />
+                        <Text className="ml-1 text-gray-500 text-sm">{item.location}</Text>
+                    </View>
+
+                    <View className="flex-row items-center mb-2">
+                        <Ionicons name="people-outline" size={16} color="#666" />
+                        <Text className="ml-1 text-gray-500 text-sm">{item.scope}</Text>
+                    </View>
+
+                    <View className="flex-row items-center mb-2">
+                        <Ionicons name="people-circle-outline" size={16} color="#666" />
+                        <Text className="ml-1 text-gray-500 text-sm">{item.participants}</Text>
+                    </View>
+
+                    <View className="flex-row items-center mb-3">
+                        <Ionicons name="list-outline" size={16} color="#666" />
+                        <Text className="ml-1 text-gray-500 text-sm">{item.requirements}</Text>
+                    </View>
+                </View>
 
                     {/* Description */}                    <View className="bg-gray-50 rounded-lg p-3">
                         <View className="flex-row items-center mb-2">

@@ -30,12 +30,11 @@ type UpcomingEvent = {
     comments: number;
     isLiked: boolean;
     isRegistered: boolean;
+    _flatListRef?: any; // Reference to the image FlatList
 };
 
 const UpcomingScreen = () => {
-    const router = useRouter();
-
-    // Mock data for upcoming events
+    const router = useRouter();    // Mock data for upcoming events
     const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([
         {
             id: '1',
@@ -47,7 +46,9 @@ const UpcomingScreen = () => {
             requirements: 'Kiến thức cơ bản về CNTT, laptop cá nhân, tinh thần học hỏi',
             description: 'Hội thảo Chuyển đổi Số trong Doanh nghiệp với sự tham gia của các chuyên gia hàng đầu trong lĩnh vực công nghệ thông tin. Đây sẽ là cơ hội để các bạn sinh viên được trao đổi, học hỏi và nắm bắt xu hướng mới trong thời đại công nghệ.',
             images: [
-                'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
             ],
             likes: 48,
             comments: 12,
@@ -61,15 +62,39 @@ const UpcomingScreen = () => {
             time: '20/05/2025',
             location: 'Nhà thi đấu Trường Đại học ABC',
             scope: 'Cộng đồng',
+            participants: 'Sinh viên tất cả các khoa, không giới hạn số lượng',
+            requirements: 'Mang theo CV, trang phục lịch sự, thái độ cởi mở',
             description: 'Ngày hội việc làm với sự tham gia của hơn 50 doanh nghiệp lớn nhỏ trong và ngoài nước. Cơ hội việc làm, thực tập dành cho sinh viên các ngành. Tham gia để có cơ hội phỏng vấn trực tiếp và nhận việc ngay tại chỗ.',
             images: [
                 'https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                'https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                'https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://scontent.fsgn5-14.fna.fbcdn.net/v/t39.30808-6/482032651_1033663062119428_6517174517474946357_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeFPhsXdnpGPjmfQl6jcU7yl08fFuiDzQWfTx8W6IPNBZ2T4ayFuGDnWTaIU7G5stZV-wIHhwfVDzv03XWfjaAZF&_nc_ohc=van9DFnBhV8Q7kNvwHMZvgG&_nc_oc=Admu_TjshsCV4ssl-8ZBvDbT3zWyhUXFxNRL20iMoZIiL0yiMfH1Ziz1GRLZ8tVuunc&_nc_zt=23&_nc_ht=scontent.fsgn5-14.fna&_nc_gid=TA6OGt60AH9Fxa3B7ZqNEQ&oh=00_AfKuqElFyG6TNaB3u1QmKjedLTZ48r08xoCEob3-fTqAbg&oe=6829F4A8'
             ],
             likes: 87,
             comments: 23,
             isLiked: true,
             isRegistered: true,
+        },
+        {
+            id: '3',
+            chapterName: 'Chi đoàn Khoa Ngoại ngữ',
+            title: 'Cuộc thi Tiếng Anh Toàn khoa 2025',
+            time: '05/06/2025 - 12/06/2025',
+            location: 'Hội trường B, Trường Đại học ABC',
+            scope: 'Khoa',
+            participants: 'Sinh viên Khoa Ngoại ngữ, tối đa 50 đội thi',
+            requirements: 'Nhóm 2-3 sinh viên, trình độ tiếng Anh tối thiểu B1',
+            description: 'Cuộc thi Tiếng Anh thường niên với nhiều phần thi hấp dẫn: thuyết trình, debate, tài năng văn nghệ... Cơ hội để các bạn thể hiện khả năng ngoại ngữ và giành nhiều giải thưởng hấp dẫn từ các nhà tài trợ.',
+            images: [
+                'https://images.unsplash.com/photo-1519834263675-53be8a5ef584?q=80&w=2036&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1610484826967-09c5720778c7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            ],
+            likes: 65,
+            comments: 18,
+            isLiked: false,
+            isRegistered: false,
         }
     ]);
 
@@ -116,14 +141,15 @@ const UpcomingScreen = () => {
                 isLiked: true,
             },
         ]
-    });
-
-    // Modal states
+    });    // Modal states
     const [commentModalVisible, setCommentModalVisible] = useState(false);
     const [shareModalVisible, setShareModalVisible] = useState(false);
     const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
     const [commentText, setCommentText] = useState('');
     const [searchContact, setSearchContact] = useState('');
+
+    // Image carousel states
+    const [activeImageIndex, setActiveImageIndex] = useState<{ [eventId: string]: number }>({});
 
     // Mock contacts for sharing
     const contacts = [
@@ -295,28 +321,56 @@ const UpcomingScreen = () => {
                     <Text className="font-bold text-lg text-gray-900">{item.title}</Text>
                 </View>
 
-                {/* Post image */}
-                <View>
-                    <FlatList
+                {/* Post image */}                <View className="relative">
+                    {/* Main image display */}                    <FlatList
                         data={item.images}
                         horizontal
                         pagingEnabled
                         showsHorizontalScrollIndicator={false}
+                        snapToInterval={undefined} // Giúp snap chính xác vào từng ảnh
+                        snapToAlignment="center"
+                        decelerationRate="fast" // Giúp dừng mượt mà hơn khi vuốt
+                        onScroll={(e) => {
+                            const contentOffset = e.nativeEvent.contentOffset;
+                            const viewWidth = e.nativeEvent.layoutMeasurement.width;
+                            const currentIndex = Math.floor(contentOffset.x / viewWidth);
+
+                            // Update active image index for this event
+                            setActiveImageIndex(prev => ({
+                                ...prev,
+                                [item.id]: currentIndex
+                            }));
+                        }}
+                        scrollEventThrottle={16}
                         renderItem={({ item: image }) => (
                             <Image
                                 source={{ uri: image }}
-                                className="w-screen aspect-video"
+                                className="w-screen aspect-square"
                                 style={{ resizeMode: 'cover' }}
                             />
                         )}
                         keyExtractor={(_, index) => `image-${index}`}
                     />
-
-                    {/* Image pagination indicator */}
+                    {/* Instagram-style dots pagination */}
                     {item.images.length > 1 && (
-                        <View className="absolute bottom-3 right-3 bg-black/50 px-2 py-1 rounded-full">
-                            <Text className="text-white text-xs">
-                                1/{item.images.length}
+                        <View className="absolute bottom-4 left-0 right-0 flex-row justify-center">
+                            {item.images.map((_, index) => {
+                                const isActive = (activeImageIndex[item.id] || 0) === index;
+                                return (
+                                    <View
+                                        key={index}
+                                        className={`h-2 rounded-full mx-1 ${isActive ? 'w-4 bg-blue-500' : 'w-2 bg-white opacity-70'
+                                            }`}
+                                    />
+                                );
+                            })}
+                        </View>
+                    )}
+                    {/* Image number indicator */}
+                    {item.images.length > 1 && (
+                        <View className="absolute top-4 right-4 bg-black/50 px-2 py-1 rounded-full">
+                            <Text className="text-white text-xs font-medium">
+                                {(activeImageIndex[item.id] || 0) + 1}/{item.images.length}
                             </Text>
                         </View>
                     )}
@@ -359,33 +413,32 @@ const UpcomingScreen = () => {
                         <Ionicons name="share-social-outline" size={22} color="#666" />
                     </TouchableOpacity>
                 </View>                {/* Post content */}
-                <View className="p-4">                    {/* Time, Location, Scope, Participants and Requirements */}
-                    <View className="mt-1 mb-3">
-                        <View className="flex-row items-center mb-2">
-                            <Ionicons name="time-outline" size={16} color="#666" />
-                            <Text className="ml-1 text-gray-500 text-xs">{item.time}</Text>
-                        </View>
-
-                        <View className="flex-row items-center mb-2">
-                            <Ionicons name="location-outline" size={16} color="#666" />
-                            <Text className="ml-1 text-gray-500 text-xs">{item.location}</Text>
-                        </View>
-
-                        <View className="flex-row items-center mb-2">
-                            <Ionicons name="people-outline" size={16} color="#666" />
-                            <Text className="ml-1 text-gray-500 text-xs">{item.scope}</Text>
-                        </View>
-
-                        <View className="flex-row items-center mb-2">
-                            <Ionicons name="people-circle-outline" size={16} color="#666" />
-                            <Text className="ml-1 text-gray-500 text-xs">{item.participants}</Text>
-                        </View>
-
-                        <View className="flex-row items-center mb-3">
-                            <Ionicons name="list-outline" size={16} color="#666" />
-                            <Text className="ml-1 text-gray-500 text-xs">{item.requirements}</Text>
-                        </View>
+                <View className="p-4">                    {/* Time, Location, Scope, Participants and Requirements */}                    <View className="mt-1 mb-3">
+                    <View className="flex-row items-center mb-2">
+                        <Ionicons name="time-outline" size={16} color="#666" />
+                        <Text className="ml-1 text-gray-500 text-sm">{item.time}</Text>
                     </View>
+
+                    <View className="flex-row items-center mb-2">
+                        <Ionicons name="location-outline" size={16} color="#666" />
+                        <Text className="ml-1 text-gray-500 text-sm">{item.location}</Text>
+                    </View>
+
+                    <View className="flex-row items-center mb-2">
+                        <Ionicons name="people-outline" size={16} color="#666" />
+                        <Text className="ml-1 text-gray-500 text-sm">{item.scope}</Text>
+                    </View>
+
+                    <View className="flex-row items-center mb-2">
+                        <Ionicons name="people-circle-outline" size={16} color="#666" />
+                        <Text className="ml-1 text-gray-500 text-sm">{item.participants}</Text>
+                    </View>
+
+                    <View className="flex-row items-center mb-3">
+                        <Ionicons name="list-outline" size={16} color="#666" />
+                        <Text className="ml-1 text-gray-500 text-sm">{item.requirements}</Text>
+                    </View>
+                </View>
 
                     {/* Description */}                    <View className="bg-gray-50 rounded-lg p-3">
                         <View className="flex-row items-center mb-2">

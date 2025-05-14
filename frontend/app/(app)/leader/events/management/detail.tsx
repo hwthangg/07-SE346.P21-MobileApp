@@ -97,10 +97,9 @@ const EventDetail = () => {
                                 source={{ uri: image }}
                                 className="w-screen h-72"
                                 style={{ resizeMode: 'cover' }}
-                            />
-                        ))}
+                            />))}
                     </ScrollView>
-                    <View className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                    <View className="absolute inset-0 bg-black opacity-30" />
 
                     {/* Status - with dropdown */}
                     <TouchableOpacity
@@ -111,9 +110,7 @@ const EventDetail = () => {
                             {currentStatus}
                         </Text>
                     </TouchableOpacity>
-                </View>
-
-                {/* Status change modal */}
+                </View>                {/* Status change modal */}
                 {isStatusModalOpen && (
                     <View className="absolute inset-0 z-50 bg-black bg-opacity-50 items-center justify-center">
                         <View className="bg-white rounded-lg w-4/5 p-4">
@@ -140,9 +137,7 @@ const EventDetail = () => {
                             </TouchableOpacity>
                         </View>
                     </View>
-                )}
-
-                {/* Title */}
+                )}                {/* Title */}
                 <View className="px-4 pt-4">
                     <Text className="text-gray-900 text-2xl font-bold">
                         {event.title}
@@ -154,8 +149,11 @@ const EventDetail = () => {
                             Tạo ngày {event.createdAt} • Cập nhật {event.updatedAt}
                         </Text>
                     </View>
-                </View>                {/* Event Details */}
-                <View className="px-4">                    {/* Time and Location */}
+                </View>
+
+                {/* Event Details */}
+                <View className="px-4">
+                    {/* Time and Location */}
                     <View className="mt-1 mb-4">
                         <View className="flex-row items-center mb-2">
                             <Ionicons name="time-outline" size={16} color="#666" />
@@ -183,7 +181,9 @@ const EventDetail = () => {
                         <Text className="text-gray-900 leading-6">
                             {event.scope}
                         </Text>
-                    </View>                    {/* Participants */}
+                    </View>
+
+                    {/* Participants */}
                     <View className="bg-white rounded-lg p-4 mb-4 border border-gray-300">
                         <View className="flex-row items-center mb-3">
                             <Ionicons
@@ -217,7 +217,8 @@ const EventDetail = () => {
                         </Text>
                     </View>
 
-                    {/* Description */}<View className="bg-white rounded-lg p-4 mb-8 border border-gray-300">
+                    {/* Description */}
+                    <View className="bg-white rounded-lg p-4 mb-8 border border-gray-300">
                         <View className="flex-row items-center mb-3">
                             <Ionicons
                                 name="information-circle-outline"

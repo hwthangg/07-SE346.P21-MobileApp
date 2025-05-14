@@ -244,21 +244,13 @@ const CreateEvent = () => {
                             <Ionicons name="location-outline" size={20} color="#000" />
                             <Text className="text-lg font-bold ml-2 text-gray-900">Địa điểm</Text>
                         </View>
-                        <View className="flex-row">
-                            <TextInput
-                                className="border border-gray-300 p-3 rounded-lg bg-white flex-1 mr-2"
-                                placeholder="Nhập địa điểm tổ chức"
-                                placeholderTextColor="#9ca3af"
-                                value={location}
-                                onChangeText={setLocation}
-                            />
-                            <TouchableOpacity
-                                className="bg-blue-600 items-center justify-center px-3 rounded-lg"
-                                onPress={() => setMapModalVisible(true)}
-                            >
-                                <Ionicons name="map-outline" size={24} color="white" />
-                            </TouchableOpacity>
-                        </View>
+                        <TextInput
+                            className="border border-gray-300 p-3 rounded-lg bg-white flex-1"
+                            placeholder="Nhập địa điểm tổ chức"
+                            placeholderTextColor="#9ca3af"
+                            value={location}
+                            onChangeText={setLocation}
+                        />
                     </View>
 
                     {/* Map Modal */}

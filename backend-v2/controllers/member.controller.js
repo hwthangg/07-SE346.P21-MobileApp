@@ -22,8 +22,8 @@ const MemberController = () => {
         position,
         status,
         search = "",
-        sortBy = "_id",
-        sortOrder = "desc",
+        sortBy = "createdAt",
+        sortOrder = "asc",
       } = req.query;
 
       // Build filter

@@ -413,6 +413,7 @@ const favorite = new EventFavorite({accountId: accountId, eventId: event._id})
 const getRegistrationsInPage = async (req, res) => {
     const logPrefix = "[RegistrationController][getRegistrationsInPage]";
     console.log(`${logPrefix} Start with query:`, req.query);
+    const eventId = req.params.eventId
 
     try {
         const {
@@ -420,7 +421,6 @@ const getRegistrationsInPage = async (req, res) => {
             limit = 10,
             search = "",
             status,
-            eventId,
             sortBy = "createdAt",
             sortOrder = "desc",
         } = req.query;

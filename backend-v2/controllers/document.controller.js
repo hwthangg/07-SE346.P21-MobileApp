@@ -93,7 +93,7 @@ const DocumentController = () => {
       search = "",
       type,
       scope,
-      sortBy = "_id",
+      sortBy = "createdAt",
       sortOrder = "asc",
     } = req.query;
 
